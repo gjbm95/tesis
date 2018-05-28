@@ -46,6 +46,8 @@ public class CargarRecursosCommand extends BaseCommand {
             Recurso recurso;
             int id = 0;
             for (File archivo : carpeta.listFiles()) {
+                
+              if (archivo.length()>0){  
                 recurso = new Recurso();
                 recurso.setNombre(archivo.getName());
                 recurso.setTamano(archivo.length());
@@ -55,6 +57,7 @@ public class CargarRecursosCommand extends BaseCommand {
                 recurso.setRuta(archivo.getPath());
                 recurso.setPropietario(nodo.getDireccion());
                 recursos.add(recurso);
+              }
             }
             nodo.setRecursos(recursos);
         } catch (NoSuchAlgorithmException e) {
