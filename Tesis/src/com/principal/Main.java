@@ -4,6 +4,7 @@ import com.Comandos.Descarga;
 import com.Comandos.EjecutarComando;
 import com.Entidades.Nodo;
 import com.Utils.RespuestaUtils;
+import com.Utils.SistemaUtil;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
@@ -39,12 +40,16 @@ public class Main {
         System.out.println("Ingrese un comando:");
         Scanner in = new Scanner(System.in);
         while (true) {
-            String line = in.nextLine();
+            String line ="";
+            if (args.length==0){
+               line = in.nextLine();
+            }else{
+              SistemaUtil.prueba_estres1(args);
+              break;
+            }
             EjecutarComando.linea(line);
         }
 
     }
-
-
 
 }

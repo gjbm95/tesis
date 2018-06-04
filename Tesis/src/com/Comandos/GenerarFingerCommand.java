@@ -2,6 +2,7 @@ package com.Comandos;
 
 import com.ControladoresRed.ConexionUtils;
 import com.ControladoresRed.Mensaje;
+import com.Entidades.Estadistica;
 import com.Entidades.Fantasma;
 import com.Entidades.Nodo;
 import com.Entidades.NodoRF;
@@ -59,6 +60,7 @@ public class GenerarFingerCommand extends BaseCommand {
                     if (tabla.isEmpty()) {
                         tabla.put(1, primero);
                     }
+                    Estadistica.add_tablas();
                     ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("addtable", tabla, nodo));
                 }
 
