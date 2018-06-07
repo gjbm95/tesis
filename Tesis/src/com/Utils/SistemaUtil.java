@@ -7,8 +7,11 @@ import com.Entidades.Estadistica;
 import com.Entidades.Fantasma;
 import com.Entidades.Nodo;
 import com.Entidades.NodoRF;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -27,6 +30,7 @@ import java.util.logging.Logger;
 public class SistemaUtil {
 
     public static String tipo ="";
+    public static Object respuesta; 
 
     public static String obtenerHora(){
         Calendar calendario = Calendar.getInstance();
@@ -40,6 +44,7 @@ public class SistemaUtil {
     
     public static void prueba_estres1(String args[]){
               if (args[0].equals("fantasma")){
+                reseteo();  
                 String direcciones[] = adaptadoresDisponibles();
                 EjecutarComando.linea("network " + direcciones[Integer.parseInt(args[1]) - 1]
                                + " 2000" + " central");
@@ -59,29 +64,71 @@ public class SistemaUtil {
                    try {
                         NodoRF mynodorf = new NodoRF(Nodo.obtenerInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion());
                         ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("addnode",mynodorf,Fantasma.obtenerInstancia()));
-                        Thread.sleep(10000);
+                        //Thread.sleep(tiempo()*1000);
                         EjecutarComando.linea("share");
-                        Thread.sleep(10000);
+                        //Thread.sleep(tiempo()*1000);
                         String [] archivos = {"archivo1.jpg","archivo2.mp3","archivo3.txt"};
                         Random r = new Random();
                         Integer valor = r.nextInt(3);
                         EjecutarComando.linea("search "+archivos[valor]);
-                        Thread.sleep(60000);
                         System.out.println("Piloto automatico finalizado");
                         System.out.println("Algunos datos recogidos");
                         System.out.println("-----------------------------------------");
                         EjecutarComando.linea("listfinger");
                    } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
-                    } catch (InterruptedException ex) {
-                      Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
+                    //} catch (InterruptedException ex) {
+                    //  Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
                   }
 
               }
               
     }
     
+     private static void reseteo(){
+        try {
+            String ruta = "posicion.txt";
+            File archivo = new File(ruta);
+            BufferedWriter bw;
+            bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write("0");
+            bw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+    
+     private static int obtenerPuesto(){
+        
+        try {
+            String ruta = "posicion.txt";
+            File archivo = new File(ruta);
+            BufferedReader br;
+            br = new BufferedReader(new FileReader(archivo));
+            StringBuilder posicion=new StringBuilder();
+            String valor ="";
+            while(valor!=null){
+              posicion.append(valor);
+              valor =  br.readLine();
+            }
+            String resultado = posicion.toString();
+            int posicionfinal = Integer.parseInt(resultado)+1;
+            System.out.println("Valor "+posicionfinal);
+            br.close();
+            BufferedWriter bw;
+            bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write(Integer.toString(posicionfinal));
+            bw.close();
+            return posicionfinal;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0; 
+     }
       
+    
      private static String [] adaptadoresDisponibles(){
           int conteo =0;
                 String direcciones []= new String[10];
@@ -118,6 +165,11 @@ public class SistemaUtil {
         }
         respuesta = valor.toString();
         return respuesta;
+    }
+     
+    private static int tiempo(){
+        Random r = new Random();
+        return r.nextInt(30);
     }
      
     public static void generarReporte(){

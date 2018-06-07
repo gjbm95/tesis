@@ -42,6 +42,7 @@ public class ConexionUtils {
 
 
     public Object enviarMensaje(Mensaje dato){
+        
         try {
             ObjectOutputStream salidaObjeto;
             //Se colocan los datos del que funge como servidor (Direccion IP y Puerto).
@@ -83,6 +84,9 @@ public class ConexionUtils {
                 }
             }
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ConexionUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (Exception ex) {
+            System.out.println("Error durante conexion para envio "+dato.getFuncion());
             Logger.getLogger(ConexionUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
