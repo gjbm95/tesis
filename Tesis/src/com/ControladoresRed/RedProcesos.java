@@ -64,7 +64,7 @@ public class RedProcesos extends Thread {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void realizarAccion(Mensaje mensaje,ObjectInputStream ois,ObjectOutputStream oos)
+    public synchronized void realizarAccion(Mensaje mensaje,ObjectInputStream ois,ObjectOutputStream oos)
                                                               throws IOException, ClassNotFoundException {
         String funcion = mensaje.getFuncion();
         //Reportando
@@ -80,6 +80,8 @@ public class RedProcesos extends Thread {
                     EjecutarComando.linea("order");
                     oos.writeObject(new Mensaje("addnode","",nodo));
                      EjecutarComando.linea("generarFinger");
+                     if (SistemaUtil.terminal)
+                    EjecutarComando.linea("listring");
             }
             if(funcion.equals("deletenode")){
                     if (mensaje.getData() instanceof Nodo) {
@@ -100,6 +102,8 @@ public class RedProcesos extends Thread {
                     Nodo.getInstancia().getTablaRecursos().clear();
                     Nodo.getInstancia().setTabla((HashMap<Integer, NodoRF>)mensaje.getData());
                     System.out.println("Se ha agregado la tabla de forma exitosa");
+                    if (SistemaUtil.terminal)
+                    EjecutarComando.linea("listfinger");
                     oos.writeObject("");
             }
             if(funcion.equals("getip")){

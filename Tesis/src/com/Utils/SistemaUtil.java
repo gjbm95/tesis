@@ -31,6 +31,7 @@ public class SistemaUtil {
 
     public static String tipo ="";
     public static Object respuesta; 
+    public static boolean terminal=false;
 
     public static String obtenerHora(){
         Calendar calendario = Calendar.getInstance();
@@ -42,7 +43,8 @@ public class SistemaUtil {
         return hora + ":" + minutos + ":" + segundos + ":" + milisegundos;
     }
     
-    public static void prueba_estres1(String args[]){
+    public synchronized static void prueba_estres1(String args[]){
+             terminal = true;
               if (args[0].equals("fantasma")){
                 reseteo();  
                 String direcciones[] = adaptadoresDisponibles();
@@ -55,7 +57,7 @@ public class SistemaUtil {
               if (args[0].equals("miembro")){
                    EjecutarComando.linea("loadresources");
                    String direcciones[] = adaptadoresDisponibles();
-                   EjecutarComando.linea("network " + direcciones[Integer.parseInt(args[1]) - 1]
+                   EjecutarComando.linea("network " + direcciones[obtenerPuesto() - 1]
                                + " " + seleccionarPuerto() + " miembro");
                    SistemaUtil.tipo = "miembro";
                    EjecutarComando.linea("listen");
@@ -65,21 +67,21 @@ public class SistemaUtil {
                         NodoRF mynodorf = new NodoRF(Nodo.obtenerInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion());
                         ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("addnode",mynodorf,Fantasma.obtenerInstancia()));
                         //Thread.sleep(tiempo()*1000);
-                        EjecutarComando.linea("share");
+                        //EjecutarComando.linea("share");
                         //Thread.sleep(tiempo()*1000);
                         String [] archivos = {"archivo1.jpg","archivo2.mp3","archivo3.txt"};
                         Random r = new Random();
-                        Integer valor = r.nextInt(3);
-                        EjecutarComando.linea("search "+archivos[valor]);
+                        Integer valor = r.nextInt(2);
+                        //EjecutarComando.linea("search "+archivos[valor]);
                         System.out.println("Piloto automatico finalizado");
                         System.out.println("Algunos datos recogidos");
                         System.out.println("-----------------------------------------");
                         EjecutarComando.linea("listfinger");
                    } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
-                    //} catch (InterruptedException ex) {
-                    //  Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
-                  }
+                  } //catch (InterruptedException ex) {
+                  //    Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
+                  //}
 
               }
               

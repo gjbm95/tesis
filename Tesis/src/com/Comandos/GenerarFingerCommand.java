@@ -36,7 +36,7 @@ public class GenerarFingerCommand extends BaseCommand {
     }
 
     @Override
-    public void ejecutar(String[] args, OutputStream out) {
+    public synchronized void ejecutar(String[] args, OutputStream out) {
         Fantasma f= Fantasma.obtenerInstancia();
         int valorFinger;
         HashMap<Integer,NodoRF> tabla = new HashMap<Integer,NodoRF>();
