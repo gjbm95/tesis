@@ -53,11 +53,10 @@ public class SistemaUtil {
                        SistemaUtil.tipo = "fantasma";
                        EjecutarComando.linea("listen");
               }
-              
               if (args[0].equals("miembro")){
                    EjecutarComando.linea("loadresources");
                    String direcciones[] = adaptadoresDisponibles();
-                   EjecutarComando.linea("network " + direcciones[obtenerPuesto() - 1]
+                   EjecutarComando.linea("network " + direcciones[Integer.parseInt(args[1]) - 1]
                                + " " + seleccionarPuerto() + " miembro");
                    SistemaUtil.tipo = "miembro";
                    EjecutarComando.linea("listen");
@@ -68,20 +67,21 @@ public class SistemaUtil {
                         ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("addnode",mynodorf,Fantasma.obtenerInstancia()));
                         //Thread.sleep(tiempo()*1000);
                         //EjecutarComando.linea("share");
-                        //Thread.sleep(tiempo()*1000);
+                        
                         String [] archivos = {"archivo1.jpg","archivo2.mp3","archivo3.txt"};
                         Random r = new Random();
                         Integer valor = r.nextInt(2);
-                        //EjecutarComando.linea("search "+archivos[valor]);
+                        Thread.sleep(10000);
+                        EjecutarComando.linea("search "+archivos[valor]);
                         System.out.println("Piloto automatico finalizado");
                         System.out.println("Algunos datos recogidos");
                         System.out.println("-----------------------------------------");
                         EjecutarComando.linea("listfinger");
                    } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
-                  } //catch (InterruptedException ex) {
-                  //    Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
-                  //}
+                  }catch (InterruptedException ex) {
+                    Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
+                  }
 
               }
               
@@ -100,7 +100,7 @@ public class SistemaUtil {
         }
      }
     
-     private static int obtenerPuesto(){
+     private synchronized static int obtenerPuesto(){
         
         try {
             String ruta = "posicion.txt";
