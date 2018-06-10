@@ -1,15 +1,13 @@
 package com.ControladoresRed;
 
 import com.Comandos.EjecutarComando;
-import com.Comandos.EnviarMensajeCommand;
-import com.Comandos.RecibirArchivoCommand;
 import com.Entidades.Estadistica;
 import com.Entidades.Fantasma;
 import com.Entidades.Nodo;
 import com.Entidades.NodoRF;
-import com.Entidades.Recurso;
-import com.Utils.RespuestaUtils;
+import com.Utils.LoggerUtil;
 import com.Utils.SistemaUtil;
+import static com.Utils.SistemaUtil.obtenerHora;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -48,7 +46,7 @@ public class RedProcesos extends Thread {
 
     public void run(){
         try {
-            System.out.println("Funcion: "+this.mensaje.getFuncion()+" Tiempo de llegada: "+SistemaUtil.obtenerHora());
+            //LoggerUtil.Log("Funcion: "+this.mensaje.getFuncion()+" Tiempo de llegada: "+SistemaUtil.obtenerHora());
             this.realizarAccion(this.mensaje,this.ois,this.oos);
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,7 +73,9 @@ public class RedProcesos extends Thread {
             if(funcion.equals("addnode")){
                     NodoRF nodo = (NodoRF) mensaje.getData();
                     EjecutarComando.linea("addnode "+nodo.getDireccion()+" "+nodo.getPuertopeticion());
+                    LoggerUtil.obtenerInstancia().Log("Agregado nodo "+nodo.getDireccion()+" tiempo: "+SistemaUtil.obtenerHora());
                     System.out.println("Se ha agregado un nodo de forma exitosa");
+                    
                     Estadistica.add_nodos();
                     EjecutarComando.linea("order");
                     oos.writeObject(new Mensaje("addnode","",nodo));
@@ -101,7 +101,9 @@ public class RedProcesos extends Thread {
             if(funcion.equals("addtable")){
                     Nodo.getInstancia().getTablaRecursos().clear();
                     Nodo.getInstancia().setTabla((HashMap<Integer, NodoRF>)mensaje.getData());
+                    LoggerUtil.obtenerInstancia().Log("Finger almacenado "+Nodo.getInstancia().getDireccion()+" tiempo: "+obtenerHora());
                     System.out.println("Se ha agregado la tabla de forma exitosa");
+                    EjecutarComando.linea("share");
                     if (SistemaUtil.terminal)
                     EjecutarComando.linea("listfinger");
                     oos.writeObject("");

@@ -6,6 +6,8 @@ import com.Entidades.Estadistica;
 import com.Entidades.Fantasma;
 import com.Entidades.Nodo;
 import com.Entidades.NodoRF;
+import com.Utils.LoggerUtil;
+import static com.Utils.SistemaUtil.obtenerHora;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class GenerarFingerCommand extends BaseCommand {
         ArrayList<NodoRF> anillo = f.getAnillo();
             try {
                 for (NodoRF nodo : anillo) {
+                    LoggerUtil.obtenerInstancia().Log("Generando Finger "+nodo.getDireccion()+" tiempo: "+obtenerHora());
                     tabla = new HashMap<Integer, NodoRF>();
                     int indice = 1;
                     for (int i = 1; i <= 5; i++) {
@@ -60,13 +63,14 @@ public class GenerarFingerCommand extends BaseCommand {
                     if (tabla.isEmpty()) {
                         tabla.put(1, primero);
                     }
+                    LoggerUtil.obtenerInstancia().Log("Finger Generado "+nodo.getDireccion()+" tiempo: "+obtenerHora());
                     Estadistica.add_tablas();
                     ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("addtable", tabla, nodo));
                 }
 
-                for(NodoRF nodo: anillo){
+                /*for(NodoRF nodo: anillo){
                     ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("share","", nodo));
-                }
+                }*/
             }catch(ConcurrentModificationException e){
 
 

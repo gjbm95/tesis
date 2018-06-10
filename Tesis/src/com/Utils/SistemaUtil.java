@@ -32,7 +32,6 @@ public class SistemaUtil {
     public static String tipo ="";
     public static Object respuesta; 
     public static boolean terminal=false;
-
     public static String obtenerHora(){
         Calendar calendario = Calendar.getInstance();
         int hora, minutos, segundos,milisegundos;
@@ -64,6 +63,7 @@ public class SistemaUtil {
                    EjecutarComando.linea("network " + args[2] + " 2000 central");
                    try {
                         NodoRF mynodorf = new NodoRF(Nodo.obtenerInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion());
+                        LoggerUtil.obtenerInstancia().Log("Solicitando agregar nodo "+Nodo.obtenerInstancia().getDireccion()+" tiempo: "+obtenerHora());
                         ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("addnode",mynodorf,Fantasma.obtenerInstancia()));
                         //Thread.sleep(tiempo()*1000);
                         //EjecutarComando.linea("share");
@@ -72,6 +72,7 @@ public class SistemaUtil {
                         Random r = new Random();
                         Integer valor = r.nextInt(2);
                         Thread.sleep(10000);
+                        LoggerUtil.obtenerInstancia().Log("Buscando recurso "+Nodo.obtenerInstancia().getDireccion()+" tiempo: "+obtenerHora());
                         EjecutarComando.linea("search "+archivos[valor]);
                         System.out.println("Piloto automatico finalizado");
                         System.out.println("Algunos datos recogidos");
