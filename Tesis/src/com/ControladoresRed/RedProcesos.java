@@ -155,7 +155,6 @@ public class RedProcesos extends Thread {
                    // System.out.println("Actualizando tabla de recursos");
                     oos.writeObject("asignado");
                 }else if (!Nodo.getInstancia().isSolicitante()){
-                    if (!Nodo.getInstancia().isLast()){
                         System.out.println("Redireccionando asignacion...");
                         NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
                         if (!(hashnode.getDireccion().equals(Nodo.getInstancia().getDireccion()))
@@ -166,10 +165,7 @@ public class RedProcesos extends Thread {
                             Nodo.getInstancia().agregarRecurso(nodo, hash);
                             oos.writeObject("asignado");
                         }
-                    }else{
-                       Nodo.getInstancia().agregarRecurso(nodo, hash);
-                       oos.writeObject("asignado");
-                    }
+                    
                 }else{
                     Nodo.getInstancia().agregarRecurso(nodo, hash);
                     //System.out.println("Actualizando tabla de recursos");

@@ -2,10 +2,13 @@ package com.Entidades;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Universidad Catolica Andres Bello
@@ -135,7 +138,14 @@ public class Nodo extends Miembro implements Serializable {
                 }
             }
             if (respuesta == null) {
-                respuesta = tabla.get(tabla.size());
+                try {
+                    if (!Nodo.getInstancia().isLast())
+                        respuesta= new NodoRF(Nodo.obtenerInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion());
+                    else
+                    respuesta = tabla.get(tabla.size());
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(Nodo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }else
             System.out.println("Su tabla finger no se ha generado");
