@@ -201,4 +201,16 @@ public class Nodo extends Miembro implements Serializable {
     public void setEnespera(Long enespera) {
         this.enespera = enespera;
     }
+    
+    public boolean isLast(){
+        NodoRF respuesta = null;
+        Nodo nodo = Nodo.obtenerInstancia();
+        HashMap<Integer,NodoRF> tabla = nodo.getTabla();
+        for (NodoRF item : tabla.values()) {
+            if (nodo.getHash().longValue() >= Math.abs(item.getHash().longValue())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

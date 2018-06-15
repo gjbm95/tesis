@@ -24,7 +24,7 @@ import java.util.HashMap;
  */
 public class Fantasma extends Miembro  implements Serializable {
 
-    private ArrayList<NodoRF> anillo;
+    private ArrayList<NodoRF> anillo = new ArrayList<NodoRF>();
 
     public ArrayList<NodoRF> getAnillo() {
         return anillo;
