@@ -68,9 +68,9 @@ public class GenerarFingerCommand extends BaseCommand {
                     ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("addtable", tabla, nodo));
                 }
 
-                /*for(NodoRF nodo: anillo){
+                for(NodoRF nodo: anillo){
                     ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("share","", nodo));
-                }*/
+                }
             }catch(ConcurrentModificationException e){
 
 

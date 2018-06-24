@@ -135,11 +135,12 @@ public class Nodo extends Miembro implements Serializable {
             for (NodoRF item : tabla.values()) {
                 if (archivohash < Math.abs(item.getHash().longValue())) {
                     respuesta = item;
+                    break;
                 }
             }
             if (respuesta == null) {
                 try {
-                    if (!Nodo.getInstancia().isLast())
+                    if (Nodo.getInstancia().isLast())
                         respuesta= new NodoRF(Nodo.obtenerInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion());
                     else
                     respuesta = tabla.get(tabla.size());

@@ -103,7 +103,7 @@ public class RedProcesos extends Thread {
                     Nodo.getInstancia().setTabla((HashMap<Integer, NodoRF>)mensaje.getData());
                     LoggerUtil.obtenerInstancia().Log("Finger almacenado "+Nodo.getInstancia().getDireccion()+" tiempo: "+obtenerHora());
                     System.out.println("Se ha agregado la tabla de forma exitosa");
-                    EjecutarComando.linea("share");
+                   // EjecutarComando.linea("share");
                     if (SistemaUtil.terminal)
                     EjecutarComando.linea("listfinger");
                     oos.writeObject("");
