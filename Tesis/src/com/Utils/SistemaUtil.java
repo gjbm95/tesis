@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 public class SistemaUtil {
 
     public static String tipo ="";
+    public static String almacen = "recursos";
     public static Object respuesta; 
     public static boolean terminal=false;
     public static String obtenerHora(){

@@ -7,6 +7,7 @@ import com.Entidades.Nodo;
 import com.Entidades.NodoRF;
 import com.Entidades.Recurso;
 import com.Utils.RespuestaUtils;
+import com.Utils.SistemaUtil;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -39,7 +40,7 @@ public class CargarRecursosCommand extends BaseCommand {
     @Override
     public void ejecutar(String[] args, OutputStream out) {
         try {
-            File carpeta = new File("recursos");
+            File carpeta = new File(SistemaUtil.almacen);
             System.out.println("Cargando recursos...");
             Nodo nodo = Nodo.obtenerInstancia();
             ArrayList<Recurso> recursos = new ArrayList<Recurso>();

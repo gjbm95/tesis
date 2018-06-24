@@ -41,6 +41,15 @@ public class SeleccionarRedCommand extends BaseCommand{
 
     @Override
     public void ejecutar(String[] args, OutputStream out) {
+        System.out.println("-------------------------------------------------------");
+        System.out.println("Indique el nombre del almacen:");
+        System.out.println("-------------------------------------------------------");
+        Scanner instorage = new Scanner(System.in);
+        String storage = instorage.nextLine();
+        if (!storage.equals(""))
+        SistemaUtil.almacen = storage; 
+        
+        
         EjecutarComando.linea("loadresources");
         System.out.println("");
         System.out.println("-------------------------------------------------------");
