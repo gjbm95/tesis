@@ -107,7 +107,7 @@ public class RedProcesos extends Thread {
                     Nodo.getInstancia().setTabla((HashMap<Integer, NodoRF>)mensaje.getData());
                     LoggerUtil.obtenerInstancia().Log("Finger almacenado "+Nodo.getInstancia().getDireccion()+" tiempo: "+obtenerHora());
             try {
-                SistemaUtil.reportarTiempo("generarFinger", "fin", new NodoRF(Nodo.getInstancia().getDireccion(), Nodo.getInstancia().getPuertopeticion()));
+                SistemaUtil.reportarTiempo("generarFinger", "final", new NodoRF(Nodo.getInstancia().getDireccion(), Nodo.getInstancia().getPuertopeticion()));
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(RedProcesos.class.getName()).log(Level.SEVERE, null, ex);
             }
