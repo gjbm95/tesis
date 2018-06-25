@@ -18,6 +18,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.Random;
@@ -33,6 +34,8 @@ public class SistemaUtil {
     public static String almacen = "recursos";
     public static Object respuesta; 
     public static boolean terminal=false;
+    public static String servidorTiempo;
+    public static boolean informarTiempo = true;
     public static String obtenerHora(){
         Calendar calendario = Calendar.getInstance();
         int hora, minutos, segundos,milisegundos;
@@ -207,5 +210,16 @@ public class SistemaUtil {
                 Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         } 
+    }
+    
+    public static void reportarTiempo(String funcion, String marca, NodoRF origen){
+        if(informarTiempo){
+            try {
+                Mensaje mensaje = new Mensaje(funcion, marca, origen, new NodoRF(servidorTiempo,1500));
+                ConexionUtils.obtenerInstancia().enviarMensaje(mensaje);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

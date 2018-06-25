@@ -9,6 +9,7 @@ import com.Entidades.NodoRF;
 import com.Entidades.Recurso;
 import com.Utils.LoggerUtil;
 import com.Utils.RespuestaUtils;
+import com.Utils.SistemaUtil;
 import static com.Utils.SistemaUtil.obtenerHora;
 
 import java.io.OutputStream;
@@ -46,6 +47,7 @@ public class BuscarRecursoCommand extends BaseCommand{
             Long hash = RespuestaUtils.generarHash(args[0]).longValue();
             NodoRF nodo = Nodo.obtenerInstancia().seleccionarNodo(hash);
             LoggerUtil.obtenerInstancia().Log("Buscando recurso "+nodo.getDireccion()+" tiempo: "+obtenerHora());
+            SistemaUtil.reportarTiempo(COMMAND_NAME, "inicio", new NodoRF(Nodo.getInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion()));
             //Obtiene la IP y Descarga el archivo
             if (hash > Nodo.obtenerInstancia().getHash().longValue()) {
                 Nodo.getInstancia().setSolicitante(true);
@@ -53,6 +55,7 @@ public class BuscarRecursoCommand extends BaseCommand{
                 ArrayList<Nodo> duenos = (ArrayList<Nodo>) ConexionUtils.obtenerInstancia().enviarMensaje(mensaje);
                 if (!duenos.isEmpty()) {
                     LoggerUtil.obtenerInstancia().Log("Recurso Encontrado"+nodo.getDireccion()+" tiempo: "+obtenerHora());
+                    SistemaUtil.reportarTiempo(COMMAND_NAME, "final", new NodoRF(Nodo.getInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion()));
                     new Descargas(duenos, args[0],hash).start();
                     //EjecutarComando.linea("download " + duenos.getDireccion() + " " + duenos.getPuertopeticion() + " " + hash);
                 } else {

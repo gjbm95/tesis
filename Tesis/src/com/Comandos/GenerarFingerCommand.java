@@ -1,5 +1,6 @@
 package com.Comandos;
 
+import static com.Comandos.BuscarRecursoCommand.COMMAND_NAME;
 import com.ControladoresRed.ConexionUtils;
 import com.ControladoresRed.Mensaje;
 import com.Entidades.Estadistica;
@@ -7,6 +8,7 @@ import com.Entidades.Fantasma;
 import com.Entidades.Nodo;
 import com.Entidades.NodoRF;
 import com.Utils.LoggerUtil;
+import com.Utils.SistemaUtil;
 import static com.Utils.SistemaUtil.obtenerHora;
 
 import java.io.OutputStream;
@@ -48,6 +50,7 @@ public class GenerarFingerCommand extends BaseCommand {
             try {
                 for (NodoRF nodo : anillo) {
                     LoggerUtil.obtenerInstancia().Log("Generando Finger "+nodo.getDireccion()+" tiempo: "+obtenerHora());
+                    SistemaUtil.reportarTiempo(COMMAND_NAME, "inicio", nodo);
                     tabla = new HashMap<Integer, NodoRF>();
                     int indice = 1;
                     for (int i = 1; i <= 5; i++) {

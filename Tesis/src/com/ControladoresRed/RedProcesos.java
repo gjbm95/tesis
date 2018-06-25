@@ -13,8 +13,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Universidad Catolica Andres Bello
@@ -74,6 +77,7 @@ public class RedProcesos extends Thread {
                     NodoRF nodo = (NodoRF) mensaje.getData();
                     EjecutarComando.linea("addnode "+nodo.getDireccion()+" "+nodo.getPuertopeticion());
                     LoggerUtil.obtenerInstancia().Log("Agregado nodo "+nodo.getDireccion()+" tiempo: "+SistemaUtil.obtenerHora());
+                    SistemaUtil.reportarTiempo("addnode", "final", nodo);
                     System.out.println("Se ha agregado un nodo de forma exitosa");
                     
                     Estadistica.add_nodos();
@@ -102,6 +106,11 @@ public class RedProcesos extends Thread {
                     Nodo.getInstancia().getTablaRecursos().clear();
                     Nodo.getInstancia().setTabla((HashMap<Integer, NodoRF>)mensaje.getData());
                     LoggerUtil.obtenerInstancia().Log("Finger almacenado "+Nodo.getInstancia().getDireccion()+" tiempo: "+obtenerHora());
+            try {
+                SistemaUtil.reportarTiempo("generarFinger", "fin", new NodoRF(Nodo.getInstancia().getDireccion(), Nodo.getInstancia().getPuertopeticion()));
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(RedProcesos.class.getName()).log(Level.SEVERE, null, ex);
+            }
                     System.out.println("Se ha agregado la tabla de forma exitosa");
                    // EjecutarComando.linea("share");
                     if (SistemaUtil.terminal)

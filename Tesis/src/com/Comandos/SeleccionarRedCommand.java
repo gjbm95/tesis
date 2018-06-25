@@ -94,6 +94,7 @@ public class SeleccionarRedCommand extends BaseCommand{
                        System.out.println("---------------------------------------------------");
                        in = new Scanner(System.in);
                        line = in.nextLine();
+                       SistemaUtil.servidorTiempo = line;
                        EjecutarComando.linea("network " + line + " 2000 central");
                        listo = true;
                    }else if (args[0].equals("fantasma")){
@@ -102,6 +103,7 @@ public class SeleccionarRedCommand extends BaseCommand{
                        SistemaUtil.tipo = "fantasma";
                        EjecutarComando.linea("listen");
                        listo = true;
+                        SistemaUtil.servidorTiempo = direcciones[Integer.parseInt(line) - 1];
                    }
                 }else{
                     System.out.println("Ha ingresado un valor no valido");
