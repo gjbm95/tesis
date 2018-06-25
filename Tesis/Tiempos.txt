@@ -40,3 +40,25 @@ Jun 24, 2018 11:24:05 PM com.Utils.LoggerUtil Log
 INFO: Finger Generado 192.168.0.108 tiempo: 23:24:5:728
 Jun 24, 2018 11:24:05 PM com.Utils.LoggerUtil Log
 INFO: Finger almacenado 192.168.0.108 tiempo: 23:24:5:854
+jun 25, 2018 9:26:15 AM com.Utils.LoggerUtil Log
+INFORMACIÓN: Solicitando agregar nodo 172.16.33.69 tiempo: 9:26:14:921
+jun 25, 2018 9:26:15 AM com.Utils.LoggerUtil Log
+INFORMACIÓN: Agregado nodo 172.16.33.69 tiempo: 9:26:15:614
+jun 25, 2018 9:26:15 AM com.Utils.LoggerUtil Log
+INFORMACIÓN: Generando Finger 172.16.33.69 tiempo: 9:26:15:659
+jun 25, 2018 9:26:15 AM com.Utils.LoggerUtil Log
+INFORMACIÓN: Finger Generado 172.16.33.69 tiempo: 9:26:15:669
+jun 25, 2018 9:26:15 AM com.Utils.LoggerUtil Log
+INFORMACIÓN: Finger almacenado 172.16.33.69 tiempo: 9:26:15:697
+jun 25, 2018 9:34:55 AM com.Utils.LoggerUtil Log
+INFORMACIÓN: Solicitando agregar nodo 172.16.33.69 tiempo: 9:34:55:582
+jun 25, 2018 9:34:55 AM com.Utils.LoggerUtil Log
+INFORMACIÓN: Agregado nodo 172.16.33.69 tiempo: 9:34:55:929
+jun 25, 2018 9:34:55 AM com.Utils.LoggerUtil Log
+INFORMACIÓN: Generando Finger 172.16.33.69 tiempo: 9:34:55:962
+jun 25, 2018 9:34:55 AM com.Utils.LoggerUtil Log
+INFORMACIÓN: Finger Generado 172.16.33.69 tiempo: 9:34:55:969
+jun 25, 2018 9:34:55 AM com.Utils.LoggerUtil Log
+INFORMACIÓN: Finger almacenado 172.16.33.69 tiempo: 9:34:55:982
+jun 25, 2018 9:35:49 AM com.Utils.LoggerUtil Log
+INFORMACIÓN: Buscando recurso 172.16.33.69 tiempo: 9:35:49:469

@@ -41,15 +41,6 @@ public class SeleccionarRedCommand extends BaseCommand{
 
     @Override
     public void ejecutar(String[] args, OutputStream out) {
-        System.out.println("-------------------------------------------------------");
-        System.out.println("Indique el nombre del almacen:");
-        System.out.println("-------------------------------------------------------");
-        Scanner instorage = new Scanner(System.in);
-        String storage = instorage.nextLine();
-        if (!storage.equals(""))
-        SistemaUtil.almacen = storage; 
-        
-        
         EjecutarComando.linea("loadresources");
         System.out.println("");
         System.out.println("-------------------------------------------------------");
@@ -85,6 +76,7 @@ public class SeleccionarRedCommand extends BaseCommand{
             try {
                 if ((Integer.parseInt(line)>=0)||(Integer.parseInt(line)<=10)) {
                    if (args[0].equals("miembro")) {
+                       this.seleccionarAlamacen();
                        EjecutarComando.linea("network " + direcciones[Integer.parseInt(line) - 1]
                                + " " + this.seleccionarPuerto() + " miembro");
                        SistemaUtil.tipo = "miembro";
@@ -124,5 +116,15 @@ public class SeleccionarRedCommand extends BaseCommand{
         }
         respuesta = valor.toString();
         return respuesta;
+    }
+    
+    private void seleccionarAlamacen(){
+        System.out.println("-------------------------------------------------------");
+        System.out.println("Indique el nombre del almacen:");
+        System.out.println("-------------------------------------------------------");
+        Scanner instorage = new Scanner(System.in);
+        String storage = instorage.nextLine();
+        if (!storage.equals(""))
+        SistemaUtil.almacen = storage; 
     }
 }

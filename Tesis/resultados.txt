@@ -4,11 +4,11 @@ Resultados de Prueba de Estres
 
 ------------------------------------------------------
 
-Nº Nodos estables: 2 
+Nº Nodos estables: 1 
 
 Nº Nodos caidos: 0 
 
-Nº tablas generadas: 3
+Nº tablas generadas: 1
 
 ------------------------------------------------------
 
