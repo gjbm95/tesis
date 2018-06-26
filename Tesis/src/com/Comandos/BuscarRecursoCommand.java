@@ -69,10 +69,12 @@ public class BuscarRecursoCommand extends BaseCommand{
                 ArrayList <Nodo> duenos  = (ArrayList<Nodo>) ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("who",hash,
                         Nodo.getInstancia(), primero));
                 if (!duenos.isEmpty()) {
+                    SistemaUtil.reportarTiempo(COMMAND_NAME, "final", new NodoRF(Nodo.getInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion()));
                     new Descargas(duenos, args[0],hash).start();
                    // EjecutarComando.linea("download " + duenos.getDireccion() + " " + duenos.getPuertopeticion() + " " + hash);
                 } else {
                     if(!busquedaInterna(args[0],hash)){
+                        SistemaUtil.reportarTiempo(COMMAND_NAME, "final", new NodoRF(Nodo.getInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion()));
                       System.out.println("Archivo no encontrado");
                     }
                 }
