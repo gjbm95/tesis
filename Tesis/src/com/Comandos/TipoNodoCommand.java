@@ -49,7 +49,7 @@ public class TipoNodoCommand extends BaseCommand {
                 NodoRF mynodorf = new NodoRF(Nodo.obtenerInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion());
                 LoggerUtil.obtenerInstancia().Log("Solicitando agregar nodo "+Nodo.obtenerInstancia().getDireccion()+" tiempo: "+obtenerHora());
                 SistemaUtil.reportarTiempo("addnode", "inicio", mynodorf);
-                ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("addnode",mynodorf,Fantasma.obtenerInstancia()));
+                new ConexionUtils().enviarMensaje(new Mensaje("addnode",mynodorf,Fantasma.obtenerInstancia()));
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }

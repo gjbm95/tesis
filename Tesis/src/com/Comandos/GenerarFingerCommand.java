@@ -68,11 +68,11 @@ public class GenerarFingerCommand extends BaseCommand {
                     }
                     LoggerUtil.obtenerInstancia().Log("Finger Generado "+nodo.getDireccion()+" tiempo: "+obtenerHora());
                     Estadistica.add_tablas();
-                    ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("addtable", tabla, nodo));
+                    new ConexionUtils().enviarMensaje(new Mensaje("addtable", tabla, nodo));
                 }
 
                 for(NodoRF nodo: anillo){
-                    ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("share","", nodo));
+                    new ConexionUtils().enviarMensaje(new Mensaje("share","", nodo));
                 }
             }catch(ConcurrentModificationException e){
 

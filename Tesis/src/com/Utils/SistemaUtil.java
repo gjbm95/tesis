@@ -68,7 +68,7 @@ public class SistemaUtil {
                    try {
                         NodoRF mynodorf = new NodoRF(Nodo.obtenerInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion());
                         LoggerUtil.obtenerInstancia().Log("Solicitando agregar nodo "+Nodo.obtenerInstancia().getDireccion()+" tiempo: "+obtenerHora());
-                        ConexionUtils.obtenerInstancia().enviarMensaje(new Mensaje("addnode",mynodorf,Fantasma.obtenerInstancia()));
+                        new ConexionUtils().enviarMensaje(new Mensaje("addnode",mynodorf,Fantasma.obtenerInstancia()));
                         //Thread.sleep(tiempo()*1000);
                         //EjecutarComando.linea("share");
                         
@@ -216,7 +216,7 @@ public class SistemaUtil {
         if(informarTiempo){
             try {
                 Mensaje mensaje = new Mensaje(funcion, marca, origen, new NodoRF(servidorTiempo,1500));
-                ConexionUtils.obtenerInstancia().enviarMensaje(mensaje);
+                new ConexionUtils().enviarMensaje(mensaje);
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
