@@ -55,6 +55,7 @@ public class SistemaUtil {
                                + " 2000" + " central");
                        SistemaUtil.tipo = "fantasma";
                        EjecutarComando.linea("listen");
+                       SistemaUtil.servidorTiempo = direcciones[Integer.parseInt(args[1]) - 1];
               }
               if (args[0].equals("miembro")){
                    EjecutarComando.linea("loadresources");
@@ -65,9 +66,11 @@ public class SistemaUtil {
                    EjecutarComando.linea("listen");
                    EjecutarComando.linea("listenfile");
                    EjecutarComando.linea("network " + args[2] + " 2000 central");
+                   SistemaUtil.servidorTiempo = args[2];
                    try {
                         NodoRF mynodorf = new NodoRF(Nodo.obtenerInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion());
                         LoggerUtil.obtenerInstancia().Log("Solicitando agregar nodo "+Nodo.obtenerInstancia().getDireccion()+" tiempo: "+obtenerHora());
+                        SistemaUtil.reportarTiempo("addnode", "inicio", mynodorf);
                         new ConexionUtils().enviarMensaje(new Mensaje("addnode",mynodorf,Fantasma.obtenerInstancia()));
                         //Thread.sleep(tiempo()*1000);
                         //EjecutarComando.linea("share");
@@ -138,7 +141,7 @@ public class SistemaUtil {
     
      private static String [] adaptadoresDisponibles(){
           int conteo =0;
-                String direcciones []= new String[10];
+                String direcciones []= new String[30];
                 try {
                     Enumeration e = NetworkInterface.getNetworkInterfaces();
                     while(e.hasMoreElements())
