@@ -49,21 +49,23 @@ public class BuscarRecursoCommand extends BaseCommand{
             LoggerUtil.obtenerInstancia().Log("Buscando recurso "+nodo.getDireccion()+" tiempo: "+obtenerHora());
             SistemaUtil.reportarTiempo(COMMAND_NAME, "inicio", new NodoRF(Nodo.getInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion()));
             //Obtiene la IP y Descarga el archivo
-            if (hash > Nodo.obtenerInstancia().getHash().longValue()) {
+            if ((hash > Nodo.obtenerInstancia().getHash().longValue())&&(nodo!=null)) {
                 Nodo.getInstancia().setSolicitante(true);
                 Mensaje mensaje = new Mensaje("who", hash, Nodo.getInstancia(), nodo);
                 ArrayList<Nodo> duenos = (ArrayList<Nodo>)new ConexionUtils().enviarMensaje(mensaje);
-                if (!duenos.isEmpty()) {
-                    LoggerUtil.obtenerInstancia().Log("Recurso Encontrado"+nodo.getDireccion()+" tiempo: "+obtenerHora());
-                    SistemaUtil.reportarTiempo(COMMAND_NAME, "final", new NodoRF(Nodo.getInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion()));
-                    new Descargas(duenos, args[0],hash).start();
-                    //EjecutarComando.linea("download " + duenos.getDireccion() + " " + duenos.getPuertopeticion() + " " + hash);
-                } else {
-                    if(!busquedaInterna(args[0],hash)){
-                      SistemaUtil.reportarTiempo(COMMAND_NAME, "final", new NodoRF(Nodo.getInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion()));
-                      System.out.println("Archivo no encontrado");
+                  if (duenos!=null){
+                    if (!duenos.isEmpty()) {
+                        LoggerUtil.obtenerInstancia().Log("Recurso Encontrado"+nodo.getDireccion()+" tiempo: "+obtenerHora());
+                        SistemaUtil.reportarTiempo(COMMAND_NAME, "final", new NodoRF(Nodo.getInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion()));
+                        new Descargas(duenos, args[0],hash).start();
+                        //EjecutarComando.linea("download " + duenos.getDireccion() + " " + duenos.getPuertopeticion() + " " + hash);
+                    } else {
+                        if(!busquedaInterna(args[0],hash)){
+                          SistemaUtil.reportarTiempo(COMMAND_NAME, "final", new NodoRF(Nodo.getInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion()));
+                          System.out.println("Archivo no encontrado");
+                        }
                     }
-                }
+                  }
             }else{
                 Nodo.getInstancia().setSolicitante(true);
                 NodoRF primero = (NodoRF) new ConexionUtils().enviarMensaje(new Mensaje("first", Fantasma.obtenerInstancia()));

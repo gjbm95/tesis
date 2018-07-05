@@ -25,6 +25,7 @@ import java.util.HashMap;
 public class Fantasma extends Miembro  implements Serializable {
 
     private ArrayList<NodoRF> anillo = new ArrayList<NodoRF>();
+    private ArrayList<NodoRF> caidos = new ArrayList<NodoRF>();
 
     public ArrayList<NodoRF> getAnillo() {
         return anillo;
@@ -92,6 +93,57 @@ public class Fantasma extends Miembro  implements Serializable {
             }
         }
         return tabla;
+    }
+    
+    public boolean existe(Object input){
+        if (input instanceof NodoRF){
+            NodoRF nodo = (NodoRF) input;
+            for (NodoRF n : this.anillo){
+               if (n.getDireccion().equals(nodo.getDireccion())){
+                 return true; 
+               }
+            }
+            return false; 
+        }
+        
+        if (input instanceof Nodo){
+            Nodo nodo = (Nodo) input;
+            for (NodoRF n : this.anillo){
+               if (n.getDireccion().equals(nodo.getDireccion())){
+                 return true; 
+               }
+            }
+            return false; 
+        }
+       return false;
+    }
+    
+    public void registrarCaido(NodoRF nodo){
+       this.caidos.add(nodo);
+    }
+    
+    public boolean yaregistrado(NodoRF nodo){
+       for (NodoRF n : this.caidos){
+          if (n.getDireccion().equals(nodo.getDireccion())){
+            return true; 
+          }
+       }
+       return false; 
+    }
+    
+    public void incorporar(NodoRF nodo){
+        int index =0; 
+        int i=0;
+        boolean encontrado=false; 
+         for (NodoRF n : this.caidos){
+              if (n.getDireccion().equals(nodo.getDireccion())){
+                index =i;
+                encontrado = true; 
+              }
+              i++;
+         }
+         if (encontrado)
+         this.caidos.remove(index);
     }
 
 }

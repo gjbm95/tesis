@@ -37,18 +37,22 @@ public class EliminarNodo extends BaseCommand {
     public void ejecutar(String[] args, OutputStream out) {
       Fantasma fantasma = Fantasma.obtenerInstancia();
       int index =0;
-      for (int i=0 ; i<fantasma.getAnillo().size();i++){
-          NodoRF nodo = fantasma.getAnillo().get(i);
-          if ((nodo.getDireccion().equals(args[0]))&&(nodo.getPuertopeticion()==Integer.parseInt(args[1]))) {
-              index=i;
-              System.out.println("El nodo " +args[0] + " ha salido de la red");
-              Estadistica.add_caidos();
+      boolean encontrado = false;
+          for (int i=0 ; i<fantasma.getAnillo().size();i++){
+              NodoRF nodo = fantasma.getAnillo().get(i);
+              if ((nodo.getDireccion().equals(args[0]))&&(nodo.getPuertopeticion()==Integer.parseInt(args[1]))) {
+                  index=i; 
+                       System.out.println("El nodo " +args[0] + " ha salido de la red");
+                       Estadistica.add_caidos();
+                       encontrado = true;
+              }
+              else{
+                  new ConexionUtils().enviarMensaje(new Mensaje("clean", args[0]+":"+args[1],nodo));
+              }
           }
-          else{
-              new ConexionUtils().enviarMensaje(new Mensaje("clean", args[0]+":"+args[1],nodo));
-          }
-      }
-        fantasma.getAnillo().remove(index);
+               if (encontrado)
+               fantasma.getAnillo().remove(index);
+        
     }
 
 

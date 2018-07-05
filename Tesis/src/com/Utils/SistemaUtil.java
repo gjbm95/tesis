@@ -35,7 +35,7 @@ public class SistemaUtil {
     public static Object respuesta; 
     public static boolean terminal=false;
     public static String servidorTiempo;
-    public static boolean informarTiempo = true;
+    public static boolean informarTiempo = false;
     public static String obtenerHora(){
         Calendar calendario = Calendar.getInstance();
         int hora, minutos, segundos,milisegundos;
@@ -138,7 +138,7 @@ public class SistemaUtil {
     
      private static String [] adaptadoresDisponibles(){
           int conteo =0;
-                String direcciones []= new String[10];
+                String direcciones []= new String[50];
                 try {
                     Enumeration e = NetworkInterface.getNetworkInterfaces();
                     while(e.hasMoreElements())
@@ -181,34 +181,18 @@ public class SistemaUtil {
      
     public static void generarReporte(){
        ArchivoThread generar = new ArchivoThread();
-       new Thread(generar).start();     
+       //new Thread(generar).start();     
     }
     
     private static class ArchivoThread implements Runnable{
         public void run() {
-            try {
-                String ruta = "resultados.txt";
-                File archivo = new File(ruta);
-                BufferedWriter bw;
-                bw = new BufferedWriter(new FileWriter(archivo));
-                bw.write("------------------------------------------------------\n");
-                bw.newLine();
-                bw.write("Resultados de Prueba de Estres \n");
-                bw.newLine();
-                bw.write("------------------------------------------------------\n");
-                bw.newLine();
-                bw.write("Nº Nodos estables: "+Estadistica.getNodos_estables()+" \n");
-                bw.newLine();
-                bw.write("Nº Nodos caidos: "+Estadistica.getNodos_caidos()+" \n");
-                bw.newLine();
-                bw.write("Nº tablas generadas: "+Estadistica.getTablas_generadas()+"\n");
-                bw.newLine();
-                bw.write("------------------------------------------------------\n");
-                bw.newLine();
-                bw.close();
-            } catch (IOException ex) {
-                Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                System.out.println("------------------------------------------------------\n");
+                System.out.println("Resultados de Prueba de Estres \n");
+                System.out.println("------------------------------------------------------\n");
+                System.out.println("Nº Nodos estables: "+Estadistica.getNodos_estables()+" \n");
+                System.out.println("Nº Nodos caidos: "+Estadistica.getNodos_caidos()+" \n");
+                System.out.println("Nº tablas generadas: "+Estadistica.getTablas_generadas()+"\n");
+                System.out.println("------------------------------------------------------\n");
         } 
     }
     

@@ -43,7 +43,7 @@ public class RecibirMensajeCommand extends AsyncCommand{
     }
 
     @Override
-    public void executeOnBackground(String[] args, OutputStream out) {
+    public synchronized void executeOnBackground(String[] args, OutputStream out) {
             try {
                 ServerSocket recepcion = null;
                 if (SistemaUtil.tipo.equals("miembro")) {
@@ -71,6 +71,8 @@ public class RecibirMensajeCommand extends AsyncCommand{
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            } catch (Exception e){
+                System.out.println("Ha ocurrido un error durante la recepcion de datos");
             }
             Object respuesta = null;
     }

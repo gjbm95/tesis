@@ -87,6 +87,7 @@ public class RedProcesos extends Thread {
                     EjecutarComando.linea("listring");
             }
             if(funcion.equals("deletenode")){
+                if (Fantasma.obtenerInstancia().existe(mensaje.getData())){
                     if (mensaje.getData() instanceof Nodo) {
                         Nodo nodo = (Nodo) mensaje.getData();
                         EjecutarComando.linea("deletenode " + nodo.getDireccion() + " " + nodo.getPuertopeticion());
@@ -102,6 +103,8 @@ public class RedProcesos extends Thread {
                     }else{
                         oos.writeObject(null);
                     }
+                }
+                oos.writeObject(null);
             }
             if(funcion.equals("addtable")){
                     Nodo.getInstancia().getTablaRecursos().clear();

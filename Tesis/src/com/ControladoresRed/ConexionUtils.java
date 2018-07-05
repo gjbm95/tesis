@@ -34,7 +34,7 @@ public class ConexionUtils extends Thread{
 
 
 
-    public synchronized Object enviarMensaje(Mensaje dato){
+    public Object enviarMensaje(Mensaje dato){
         
         try {
             ObjectOutputStream salidaObjeto;

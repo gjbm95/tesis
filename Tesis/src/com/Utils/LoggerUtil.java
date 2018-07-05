@@ -34,22 +34,24 @@ public class LoggerUtil {
     }
 
     public static void Log(String informacion) {
-        try {
-            fh = new FileHandler("Tiempos.txt", true);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
-            logger.addHandler(fh);
-            logger.setUseParentHandlers(false);
-            
-            logger.info(informacion);
-            
-            fh.close();
-            logger.removeHandler(fh);
-        } catch (IOException ex) {
-            Logger.getLogger(LoggerUtil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
-            Logger.getLogger(LoggerUtil.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            if (!SistemaUtil.terminal){
+////                fh = new FileHandler("Tiempos.txt", true);
+////                SimpleFormatter formatter = new SimpleFormatter();
+////                fh.setFormatter(formatter);
+////                logger.addHandler(fh);
+////                logger.setUseParentHandlers(false);
+////
+////                logger.info(informacion);
+////
+////                fh.close();
+////                logger.removeHandler(fh);
+//            }
+//        } catch (IOException ex) {
+//            Logger.getLogger(LoggerUtil.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SecurityException ex) {
+//            Logger.getLogger(LoggerUtil.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
 }
