@@ -35,7 +35,7 @@ public class SistemaUtil {
     public static Object respuesta; 
     public static boolean terminal=false;
     public static String servidorTiempo;
-    public static boolean informarTiempo = false;
+    public static boolean informarTiempo = true;
     public static String obtenerHora(){
         Calendar calendario = Calendar.getInstance();
         int hora, minutos, segundos,milisegundos;
@@ -78,16 +78,16 @@ public class SistemaUtil {
                         String [] archivos = {"archivo1.jpg","archivo2.mp3","archivo3.txt"};
                         Random r = new Random();
                         Integer valor = r.nextInt(2);
-                        Thread.sleep(10000);
+                        //Thread.sleep(10000);
                         LoggerUtil.obtenerInstancia().Log("Buscando recurso "+Nodo.obtenerInstancia().getDireccion()+" tiempo: "+obtenerHora());
-                        EjecutarComando.linea("search "+archivos[valor]);
+                        //EjecutarComando.linea("search "+archivos[valor]);
                         System.out.println("Piloto automatico finalizado");
                         System.out.println("Algunos datos recogidos");
                         System.out.println("-----------------------------------------");
                         EjecutarComando.linea("listfinger");
                    } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
-                  }catch (InterruptedException ex) {
+                  }catch (Exception ex) {
                     Logger.getLogger(SistemaUtil.class.getName()).log(Level.SEVERE, null, ex);
                   }
 

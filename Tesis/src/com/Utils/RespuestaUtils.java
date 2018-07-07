@@ -18,6 +18,9 @@ public class RespuestaUtils {
         algoritmoCompendio.update(StandardCharsets.UTF_8.encode(entrada));
 
         BigInteger hash = new BigInteger (1, algoritmoCompendio.digest() );
-        return hash.mod(BigInteger.valueOf(20));
+        BigInteger result = hash.mod(BigInteger.valueOf(50));
+        if (result == BigInteger.valueOf(0))
+           result = BigInteger.valueOf(1);
+        return result;
     }
 }

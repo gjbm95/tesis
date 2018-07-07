@@ -97,9 +97,7 @@ public class RedProcesos extends Thread {
                     }else if (mensaje.getData() instanceof  NodoRF){
                         NodoRF nodo = (NodoRF) mensaje.getData();
                         EjecutarComando.linea("deletenode " + nodo.getDireccion() + " " + nodo.getPuertopeticion());
-                        EjecutarComando.linea("order");
                         oos.writeObject(new Mensaje("finalice", "", nodo));
-                        EjecutarComando.linea("generarFinger");
                     }else{
                         oos.writeObject(null);
                     }
@@ -243,6 +241,10 @@ public class RedProcesos extends Thread {
             if(funcion.equals("size")){
                 Long hashArchivo = (Long)(mensaje.getData());
                 oos.writeObject(Nodo.getInstancia().buscarRecurso(hashArchivo).getTamano());
+            }
+            
+            if(funcion.equals("areyouthere?")){
+                oos.writeObject("yes");
             }
 
        

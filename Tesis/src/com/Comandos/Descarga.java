@@ -91,7 +91,6 @@ public class Descarga extends Thread {
             dis.close();
             System.out.println("Finalizando proceso de descarga de archivo");
         } catch (Exception e) {
-            Logger.getLogger(RecibirArchivoCommand.class.getName()).log(Level.SEVERE, null, e);
             System.out.println("Descarga fallida!");
             this.estado = "E";
             try {

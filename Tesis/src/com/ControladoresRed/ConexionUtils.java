@@ -21,18 +21,11 @@ public class ConexionUtils extends Thread{
     private String direccion;
     private int puerto;
     private Socket reves;
-
     private Object respuesta;
-
-
 
     public ConexionUtils(){
 
     }
-    
-
-
-
 
     public Object enviarMensaje(Mensaje dato){
         
@@ -95,12 +88,16 @@ public class ConexionUtils extends Thread{
             salidaObjeto = new ObjectOutputStream(reves.getOutputStream());
             //El cliente manda:
             salidaObjeto.writeObject(dato);
+            //El cliente recibe:
+            ObjectInputStream ois = new ObjectInputStream(reves.getInputStream());
+            Object respuesta = ois.readObject();
             //Se cierra la conexion.
+            ois.close();
             reves.close();
             return respuesta;
-        } catch (IOException ex) {
-            Logger.getLogger(ConexionUtils.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+           
+        } 
         return null;
     }
 
