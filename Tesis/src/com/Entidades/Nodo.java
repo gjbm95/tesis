@@ -184,7 +184,7 @@ public class Nodo extends Miembro implements Serializable {
         return null;
     }
 
-    public void agregarRecurso(Nodo nodo, Long valor){
+    public synchronized  void agregarRecurso(Nodo nodo, Long valor){
         boolean existe = false;
         for (Map.Entry<Nodo, Long> entry : this.getTablaRecursos().entrySet()) {
             if ((entry.getKey().getDireccion().equals(nodo.getDireccion()))

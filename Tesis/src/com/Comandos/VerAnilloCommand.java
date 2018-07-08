@@ -36,6 +36,7 @@ public class VerAnilloCommand extends BaseCommand {
         int i =0;
         for (NodoRF nodo : Fantasma.obtenerInstancia().getAnillo()){
             System.out.println(i + "- Direccion: "+ nodo.getDireccion()+" Hash: "+ nodo.getHash()+" Puerto: "+nodo.getPuertopeticion());
+            i++;
         }
     }
 }
