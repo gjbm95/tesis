@@ -42,7 +42,7 @@ public class AgregarNodoCommand extends BaseCommand {
         }
     }
 
-    public boolean existe(String ip,int puerto){
+    public synchronized boolean existe(String ip,int puerto){
         for(NodoRF nodo: Fantasma.obtenerInstancia().getAnillo())
         {
             if ((nodo.getDireccion().equals(ip))&&(nodo.getPuertopeticion()==puerto))
