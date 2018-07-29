@@ -32,7 +32,7 @@ public class AgregarNodoCommand extends BaseCommand {
     }
 
     @Override
-    public  void ejecutar(String[] args, OutputStream out) {
+    public synchronized void ejecutar(String[] args, OutputStream out) {
         Fantasma fantasma = Fantasma.obtenerInstancia();
         try {
             if (!existe(args[0],Integer.parseInt(args[1])))
@@ -42,7 +42,7 @@ public class AgregarNodoCommand extends BaseCommand {
         }
     }
 
-    public boolean existe(String ip,int puerto){
+    public synchronized boolean existe(String ip,int puerto){
         for(NodoRF nodo: Fantasma.obtenerInstancia().getAnillo())
         {
             if ((nodo.getDireccion().equals(ip))&&(nodo.getPuertopeticion()==puerto))

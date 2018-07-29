@@ -77,7 +77,7 @@ public class SistemaUtil {
                         //Thread.sleep(tiempo()*1000);
                         //EjecutarComando.linea("share");
                         
-                        String [] archivos = {"archivo1.jpg","archivo2.mp3","archivo3.txt"};
+                        String [] archivos = {"prueba.txt","prueba2.txt","prueba3.txt"};
                         Random r = new Random();
                         Integer valor = r.nextInt(2);
                         //Thread.sleep(10000);
@@ -156,7 +156,7 @@ public class SistemaUtil {
                             String direccion = i.getHostAddress();
                             String octetos[] = direccion.split("\\.");
                             if(octetos.length==4) {
-                                System.out.println((conteo+1)+"- " + i.getHostAddress());
+                                //System.out.println((conteo+1)+"- " + i.getHostAddress());
                                 direcciones[conteo]=i.getHostAddress();
                                 conteo++;
                             }
