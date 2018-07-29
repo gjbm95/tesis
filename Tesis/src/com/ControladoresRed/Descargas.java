@@ -1,8 +1,10 @@
 package com.ControladoresRed;
 
+import GUI.Controller;
 import com.Comandos.Descarga;
 import com.Entidades.Fragmento;
 import com.Entidades.Nodo;
+import com.Utils.SistemaUtil;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -52,6 +54,8 @@ public class Descargas extends Thread {
             System.out.println("Posicion inicial: "+posInicial+" Posicion final:"+posFinal);
             descargas[i] = new Descarga(posInicial, posFinal, duenos.get(i), hash);
             descargas[i].start();
+            if (SistemaUtil.logsGUI!=null)
+                Controller.setLog(SistemaUtil.logsGUI,"Procesando...");
         }
         boolean error = false;
         int contador = 0;
@@ -87,6 +91,9 @@ public class Descargas extends Thread {
                 }
                 bos.close();
                 System.out.println("Descarga finalizada");
+                if (SistemaUtil.logsGUI!=null)
+                Controller.setLog(SistemaUtil.logsGUI,"Descarga finalizada");
+               
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {

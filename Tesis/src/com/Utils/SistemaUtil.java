@@ -24,6 +24,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 
 /**
  * Created by Junior on 01/04/2018.
@@ -35,7 +36,8 @@ public class SistemaUtil {
     public static Object respuesta; 
     public static boolean terminal=false;
     public static String servidorTiempo;
-    public static boolean informarTiempo = true;
+    public static JTextArea logsGUI; 
+    public static boolean informarTiempo = false;
     public static String obtenerHora(){
         Calendar calendario = Calendar.getInstance();
         int hora, minutos, segundos,milisegundos;
