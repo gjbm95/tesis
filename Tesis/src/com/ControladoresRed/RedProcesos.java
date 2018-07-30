@@ -154,7 +154,7 @@ public class RedProcesos extends Thread {
                     }
             }
 
-            if(funcion.equals("resource")){
+            if(funcion.equals("resource")){/*
                 Nodo nodo =(Nodo)mensaje.getOrigen();
                 Long hash = Long.parseLong("0");
                 if (mensaje.getData() instanceof BigInteger)
@@ -168,10 +168,13 @@ public class RedProcesos extends Thread {
                 }else if (!Nodo.getInstancia().getHash().equals(nodo.getHash())){
                         System.out.println("Redireccionando asignacion...");
                         NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
-                        if (!(hashnode.getDireccion().equals(Nodo.getInstancia().getDireccion()))
+                        if (!(hashnode.getDireccion().equals(Nodo.getInstancia().getDireccion())){
                                 &&!(hashnode.getPuertopeticion()==Nodo.obtenerInstancia().getPuertopeticion()))
                         new ConexionUtils().enviarMensaje(new Mensaje("resource",hash,
                                 nodo,hashnode));
+                
+                        oos.writeObject("redireccionado");
+                        }
                         else{
                             Nodo.getInstancia().agregarRecurso(nodo, hash);
                             oos.writeObject("asignado");
@@ -182,7 +185,27 @@ public class RedProcesos extends Thread {
                     //System.out.println("Actualizando tabla de recursos");
                     Nodo.getInstancia().setSolicitante(false);
                     oos.writeObject("asignado");
+                }*/
+                 Nodo nodo =(Nodo)mensaje.getOrigen();
+                Long hash = Long.parseLong("0");
+                if (mensaje.getData() instanceof BigInteger)
+                hash = ((BigInteger)mensaje.getData()).longValue();
+                if (mensaje.getData() instanceof Long)
+                hash = (Long)mensaje.getData();
+                
+                if(hash <= Nodo.getInstancia().getHash().longValue()){
+                     Nodo.getInstancia().agregarRecurso(nodo, hash);
+                    oos.writeObject("asignado");
                 }
+                    else{
+                            NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
+                        if (!(hashnode.getDireccion().equals(Nodo.getInstancia().getDireccion()))
+                                &&!(hashnode.getPuertopeticion()==Nodo.obtenerInstancia().getPuertopeticion()))
+                        new ConexionUtils().enviarMensaje(new Mensaje("resource",hash,
+                                nodo,hashnode));
+                        oos.writeObject("redireccionado");
+                            }
+                    
             }
 
             if (funcion.equals("who")){
@@ -190,15 +213,15 @@ public class RedProcesos extends Thread {
                 Nodo nodo =(Nodo)mensaje.getOrigen();
                 Long hash = (Long)mensaje.getData();
                 ArrayList<Nodo> respuesta = Nodo.getInstancia().tieneRecurso(hash);
-                if (respuesta!=null){
+                if (respuesta.size()>0){
                     oos.writeObject(respuesta);
-                }else if (!Nodo.getInstancia().isSolicitante()){
+                }else if (!Nodo.getInstancia().getDireccion().equals(nodo.getDireccion())){
                     System.out.println("Redireccionando consulta...");
                         NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
                     if (!(nodo.getDireccion().equals(Nodo.getInstancia().getDireccion()))
                             &&!(nodo.getPuertopeticion()==Nodo.obtenerInstancia().getPuertopeticion()))
-                        new ConexionUtils().enviarMensaje(new Mensaje("who", hash,
-                                nodo, hashnode));
+                        oos.writeObject((ArrayList<Nodo>)new ConexionUtils().enviarMensaje(new Mensaje("who", hash,
+                                nodo, hashnode)));
                     else{
                         oos.writeObject(null);
                     }

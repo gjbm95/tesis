@@ -133,7 +133,7 @@ public class Nodo extends Miembro implements Serializable {
 
         if (tabla!=null) {
             for (NodoRF item : tabla.values()) {
-                if (archivohash < Math.abs(item.getHash().longValue())) {
+                if (archivohash <= Math.abs(item.getHash().longValue())) {
                     respuesta = item;
                     break;
                 }
