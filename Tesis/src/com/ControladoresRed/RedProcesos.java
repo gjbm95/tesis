@@ -207,7 +207,7 @@ public class RedProcesos extends Thread {
                     Nodo.getInstancia().setSolicitante(false);
                     oos.writeObject("asignado");
                 }*/
-                 Nodo nodo =(Nodo)mensaje.getOrigen();
+                Nodo nodo =(Nodo)mensaje.getOrigen();
                 Long hash = Long.parseLong("0");
                 if (mensaje.getData() instanceof BigInteger)
                 hash = ((BigInteger)mensaje.getData()).longValue();
@@ -217,13 +217,13 @@ public class RedProcesos extends Thread {
                 if(hash <= Nodo.getInstancia().getHash().longValue()){
                     Nodo.getInstancia().agregarRecurso(nodo, hash);
                     oos.writeObject("asignado");
-                     System.out.println("Asignado");
+                    System.out.println("Asignado");
                 }else if (nodo.getDireccion().equals(Nodo.getInstancia().getDireccion())){
                     Nodo.getInstancia().agregarRecurso(nodo, hash);
                     oos.writeObject("asignado");
                     System.out.println("Asignado");
                 }else{
-                            NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
+                        NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
                         if (!(hashnode.getDireccion().equals(Nodo.getInstancia().getDireccion()))
                                 &&!(hashnode.getPuertopeticion()==Nodo.obtenerInstancia().getPuertopeticion()))
                         new ConexionUtils().enviarMensaje(new Mensaje("resource",hash,

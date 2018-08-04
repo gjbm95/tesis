@@ -25,7 +25,7 @@ public class Controller {
     
     public static DefaultTableModel fillTableDefault()
     {
-    String[] columna = {"Archivo","Propietatio"};
+    String[] columna = {"Archivo","Propietario"};
     DefaultTableModel dtm = new DefaultTableModel(null,columna);      
     return dtm;
    }

@@ -47,7 +47,9 @@ public class Interfaz extends javax.swing.JFrame {
         EjecutarComando.linea("loadresources");
         results.setModel(Controller.fillTableDefault());
         SistemaUtil.logsGUI = logs; 
-    }
+        numarchivos.setText(numarchivos.getText()+" "+Nodo.getInstancia().getRecursos().size());
+        numdescargas.setText(numdescargas.getText() + " 0");
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,7 +72,7 @@ public class Interfaz extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         results = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        numarchivos = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -86,13 +88,10 @@ public class Interfaz extends javax.swing.JFrame {
         centraladdress = new javax.swing.JTextField();
         address = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel7 = new javax.swing.JLabel();
+        numdescargas = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         search = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -172,15 +171,15 @@ public class Interfaz extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(30, 200, 210, 14);
 
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Número de archivos ofrecidos: ");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(30, 360, 280, 14);
+        numarchivos.setForeground(new java.awt.Color(255, 255, 255));
+        numarchivos.setText("Número de archivos ofrecidos: ");
+        getContentPane().add(numarchivos);
+        numarchivos.setBounds(30, 360, 280, 14);
 
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Tabla de Hash");
         getContentPane().add(jLabel15);
-        jLabel15.setBounds(30, 440, 170, 14);
+        jLabel15.setBounds(30, 410, 170, 14);
 
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Logs de procesos:");
@@ -203,7 +202,8 @@ public class Interfaz extends javax.swing.JFrame {
         getContentPane().add(download);
         download.setBounds(390, 510, 220, 40);
 
-        generar.setText("Generar Informe");
+        generar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/informes.png"))); // NOI18N
+        generar.setBorderPainted(false);
         generar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generarActionPerformed(evt);
@@ -231,14 +231,15 @@ public class Interfaz extends javax.swing.JFrame {
         getContentPane().add(conection);
         conection.setBounds(380, 140, 140, 30);
 
-        update.setText("Refrescar");
+        update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/refresh.png"))); // NOI18N
+        update.setBorderPainted(false);
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateActionPerformed(evt);
             }
         });
         getContentPane().add(update);
-        update.setBounds(220, 440, 90, 23);
+        update.setBounds(260, 330, 50, 50);
 
         logs.setEditable(false);
         logs.setColumns(20);
@@ -254,7 +255,7 @@ public class Interfaz extends javax.swing.JFrame {
         jScrollPane3.setViewportView(hashtable);
 
         getContentPane().add(jScrollPane3);
-        jScrollPane3.setBounds(30, 470, 280, 80);
+        jScrollPane3.setBounds(30, 430, 280, 90);
 
         centraladdress.setText("localhost");
         centraladdress.addActionListener(new java.awt.event.ActionListener() {
@@ -271,12 +272,12 @@ public class Interfaz extends javax.swing.JFrame {
 
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(jSeparator2);
-        jSeparator2.setBounds(30, 430, 280, 60);
+        jSeparator2.setBounds(30, 390, 280, 10);
 
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Número de descargas:");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(30, 340, 280, 14);
+        numdescargas.setForeground(new java.awt.Color(255, 255, 255));
+        numdescargas.setText("Número de descargas:");
+        getContentPane().add(numdescargas);
+        numdescargas.setBounds(30, 340, 280, 14);
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Resultados...");
@@ -292,31 +293,6 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel6.setText("Estadisticas:");
         getContentPane().add(jLabel6);
         jLabel6.setBounds(30, 320, 130, 14);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/informes.png"))); // NOI18N
-        jButton4.setBorderPainted(false);
-        getContentPane().add(jButton4);
-        jButton4.setBounds(30, 380, 170, 40);
-
-        jButton3.setText("Asignar");
-        jButton3.setBorderPainted(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(230, 280, 110, 30);
-
-        jButton2.setText("Asignar");
-        jButton2.setBorderPainted(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(230, 220, 110, 30);
 
         search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/search.png"))); // NOI18N
         search.setBorderPainted(false);
@@ -340,7 +316,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(0, 153, 153));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/fondo.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 10, 1240, 730);
+        jLabel1.setBounds(0, 20, 1240, 730);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -389,14 +365,6 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        SistemaUtil.servidorTiempo = centraladdress.getText();
-        EjecutarComando.linea("network " + centraladdress.getText() + " 2000 central");
-        centraladdress.setEnabled(false);
-        Controller.setLog(logs,"Asignacion exitosa");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void downloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadActionPerformed
         // TODO add your handling code here:
         String resource = (String) results.getValueAt(results.getSelectedRow(),0);
@@ -436,7 +404,7 @@ public class Interfaz extends javax.swing.JFrame {
                     }
                 }
            }
-
+             numdescargas.setText("Número de descargas: "+ (Estadisticas.descargas.size()+1));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -451,20 +419,22 @@ public class Interfaz extends javax.swing.JFrame {
         EjecutarComando.linea("finish");
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void conectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conectionActionPerformed
         // TODO add your handling code here:
-        EjecutarComando.linea("network " + address.getText()
-                               + " " + this.seleccionarPuerto() + " miembro");
+        //Asignando nodo central 
+        SistemaUtil.servidorTiempo = centraladdress.getText();
+        EjecutarComando.linea("network " + centraladdress.getText() + " 2000 central");
+        centraladdress.setEnabled(false);
+        Controller.setLog(logs,"Asignacion exitosa");
+        //Asignando nodo miembro
+        EjecutarComando.linea("network " + address.getText()+ " " + this.seleccionarPuerto() + " miembro");
         SistemaUtil.tipo = "miembro";
         address.setEnabled(false);
         address.setEditable(false);
         EjecutarComando.linea("listen");
         EjecutarComando.linea("listenfile");
         Controller.setLog(logs,"Asignacion exitosa");
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void conectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conectionActionPerformed
-        // TODO add your handling code here:
+        //Estableciendo conexion
         try {
                 NodoRF mynodorf = new NodoRF(Nodo.obtenerInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion());
                 LoggerUtil.obtenerInstancia().Log("Solicitando agregar nodo "+Nodo.obtenerInstancia().getDireccion()+" tiempo: "+obtenerHora());
@@ -580,9 +550,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton download;
     private javax.swing.JButton generar;
     private javax.swing.JTextArea hashtable;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -599,8 +566,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -609,6 +574,8 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextArea logs;
+    private javax.swing.JLabel numarchivos;
+    private javax.swing.JLabel numdescargas;
     private javax.swing.JTable results;
     private javax.swing.JButton search;
     private javax.swing.JTextField searchtext;
