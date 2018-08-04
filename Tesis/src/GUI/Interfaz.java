@@ -27,6 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
@@ -75,7 +76,7 @@ public class Interfaz extends javax.swing.JFrame {
         numarchivos = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        tiempo = new javax.swing.JLabel();
         download = new javax.swing.JButton();
         generar = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -186,10 +187,10 @@ public class Interfaz extends javax.swing.JFrame {
         getContentPane().add(jLabel22);
         jLabel22.setBounds(860, 240, 110, 14);
 
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setText("Hora de conexión:");
-        getContentPane().add(jLabel23);
-        jLabel23.setBounds(540, 140, 370, 20);
+        tiempo.setForeground(new java.awt.Color(255, 255, 255));
+        tiempo.setText("Hora de conexión:");
+        getContentPane().add(tiempo);
+        tiempo.setBounds(600, 140, 380, 30);
 
         download.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/descargar.png"))); // NOI18N
         download.setToolTipText("");
@@ -222,14 +223,15 @@ public class Interfaz extends javax.swing.JFrame {
         getContentPane().add(jButton6);
         jButton6.setBounds(1050, 10, 50, 50);
 
-        conection.setText("Iniciar Conexión");
+        conection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/conectar.png"))); // NOI18N
+        conection.setBorderPainted(false);
         conection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 conectionActionPerformed(evt);
             }
         });
         getContentPane().add(conection);
-        conection.setBounds(380, 140, 140, 30);
+        conection.setBounds(380, 140, 210, 30);
 
         update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/refresh.png"))); // NOI18N
         update.setBorderPainted(false);
@@ -446,6 +448,8 @@ public class Interfaz extends javax.swing.JFrame {
         searchtext.setEditable(true);
         searchtext.setEnabled(true);
         Controller.setLog(logs,"Conexion con servidor central exitoso");
+        Date fecha = new Date();
+        tiempo.setText("Hora de conexión: "+fecha);
     }//GEN-LAST:event_conectionActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -561,7 +565,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -579,6 +582,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTable results;
     private javax.swing.JButton search;
     private javax.swing.JTextField searchtext;
+    private javax.swing.JLabel tiempo;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }
