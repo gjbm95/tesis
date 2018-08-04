@@ -6,7 +6,6 @@ import com.Entidades.Fantasma;
 import com.Entidades.Nodo;
 import com.Entidades.NodoRF;
 import com.Utils.SistemaUtil;
-
 import java.io.OutputStream;
 import java.security.NoSuchAlgorithmException;
 
@@ -37,7 +36,7 @@ public class ExitCommand extends BaseCommand {
     @Override
     public void ejecutar(String[] args, OutputStream out) {
             if (SistemaUtil.tipo.equals("miembro")) {
-                Mensaje mensaje =(Mensaje)new ConexionUtils().enviarMensaje(new Mensaje("deletenode",
+                Mensaje mensaje =(Mensaje)new ConexionUtils().enviarMensaje(new Mensaje("leavenode",
                         Nodo.getInstancia(),Fantasma.obtenerInstancia()));
                 if (mensaje.getFuncion().equals("finalice")){
                     System.exit(0);

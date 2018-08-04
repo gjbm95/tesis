@@ -1,6 +1,8 @@
 package com.ControladoresRed;
 
 import GUI.Controller;
+import Reportes.Estadisticas;
+import Reportes.Registro;
 import com.Comandos.Descarga;
 import com.Entidades.Fragmento;
 import com.Entidades.Nodo;
@@ -27,6 +29,7 @@ public class Descargas extends Thread {
 
     @Override
     public void run() {
+        Registro registro = new Registro("",0,"");
         ArrayList<Nodo> removibles = new ArrayList<Nodo>();
         for (Nodo dueno : duenos) {
             tamano = (Long)(new ConexionUtils().enviarMensaje(new Mensaje("size", hash, dueno)));
@@ -59,6 +62,9 @@ public class Descargas extends Thread {
         }
         boolean error = false;
         int contador = 0;
+        registro.setTamano(tamano);
+        registro.setNombre(archivo);
+        registro.setStatus("Descargando...");
         while (!error && contador != pedazos) {
             contador = 0;
             for (int i = 0; i < pedazos; i++) {
@@ -93,12 +99,16 @@ public class Descargas extends Thread {
                 System.out.println("Descarga finalizada");
                 if (SistemaUtil.logsGUI!=null)
                 Controller.setLog(SistemaUtil.logsGUI,"Descarga finalizada");
-               
+                registro.setStatus("Descarga Finalizada");
+                Estadisticas.descargas.add(registro);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else{
+                registro.setStatus("Descarga Fallida");
+                Estadisticas.descargas.add(registro);
         }
 
     }

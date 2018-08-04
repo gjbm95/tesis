@@ -5,11 +5,14 @@
  */
 package GUI;
 
+import Reportes.Estadisticas;
+import Reportes.Registro;
 import static com.Comandos.BuscarRecursoCommand.COMMAND_NAME;
 import com.Comandos.EjecutarComando;
 import com.ControladoresRed.ConexionUtils;
 import com.ControladoresRed.Descargas;
 import com.ControladoresRed.Mensaje;
+import com.Entidades.Estadistica;
 import com.Entidades.Fantasma;
 import com.Entidades.Nodo;
 import com.Entidades.NodoRF;
@@ -18,6 +21,10 @@ import com.Utils.LoggerUtil;
 import com.Utils.RespuestaUtils;
 import com.Utils.SistemaUtil;
 import static com.Utils.SistemaUtil.obtenerHora;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -68,6 +75,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         download = new javax.swing.JButton();
+        generar = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         conection = new javax.swing.JButton();
         update = new javax.swing.JButton();
@@ -194,6 +202,15 @@ public class Interfaz extends javax.swing.JFrame {
         });
         getContentPane().add(download);
         download.setBounds(390, 510, 220, 40);
+
+        generar.setText("Generar Informe");
+        generar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(generar);
+        generar.setBounds(930, 90, 170, 30);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/close.png"))); // NOI18N
         jButton6.setBorderPainted(false);
@@ -343,21 +360,29 @@ public class Interfaz extends javax.swing.JFrame {
                 Nodo.getInstancia().setSolicitante(true);
                 Mensaje mensaje = new Mensaje("who", hash, Nodo.getInstancia(), nodo);
                 ArrayList<Nodo> duenos = (ArrayList<Nodo>)new ConexionUtils().enviarMensaje(mensaje);
+                if(duenos!=null){
                 if (duenos.size()>0){
                 results.setModel(Controller.fillTable(searchtext.getText(), duenos));
                 Controller.setLog(logs,"Busqueda finalizada");
                 }else 
                 Controller.setLog(logs,"Recurso no encontrado");
+                }else{
+                    Controller.setLog(logs,"Recurso no encontrado");
+                }
             }else{
                 Nodo.getInstancia().setSolicitante(true);
                 NodoRF primero = (NodoRF) new ConexionUtils().enviarMensaje(new Mensaje("first", Fantasma.obtenerInstancia()));
                 ArrayList <Nodo> duenos  = (ArrayList<Nodo>)new ConexionUtils().enviarMensaje(new Mensaje("who",hash,
                         Nodo.getInstancia(), primero));
+                if(duenos!=null){
                 if (duenos.size()>0){
                 results.setModel(Controller.fillTable(searchtext.getText(), duenos));
                 Controller.setLog(logs,"Busqueda finalizada");
                 }else 
                 Controller.setLog(logs,"Recurso no encontrado"); 
+                }else{
+                    Controller.setLog(logs,"Recurso no encontrado"); 
+                }
             }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
@@ -463,6 +488,34 @@ public class Interfaz extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_updateActionPerformed
 
+    private void generarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarActionPerformed
+        // TODO add your handling code here:
+         try {
+                String ruta = "Informe.txt";
+                File archivo = new File(ruta);
+                BufferedWriter bw;
+                bw = new BufferedWriter(new FileWriter(archivo));
+                bw.write("------------------------------------------------------\n");
+                bw.newLine();
+                bw.write("Descargar Realizadas \n");
+                bw.newLine();
+                bw.write("------------------------------------------------------\n");
+                for (Registro registro : Estadisticas.descargas){
+                  bw.newLine();
+                  bw.write("Archivo: "+registro.getNombre()+" Tamaño: "+registro.getTamano() + " bytes "
+                          +" Status: "+registro.getStatus()+" \n");
+                  bw.newLine();
+                }
+                bw.write("------------------------------------------------------\n");
+                bw.newLine();
+                bw.close();
+                System.out.println("Se ha generado el archivo con exito!");
+                Controller.setLog(logs,"Se ha generado el archivo con exito!");
+            } catch (IOException ex) {
+                Logger.getLogger(Estadistica.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_generarActionPerformed
+
     private String seleccionarPuerto(){
         String respuesta ="";
         Integer valor =0;
@@ -525,6 +578,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTextField centraladdress;
     private javax.swing.JButton conection;
     private javax.swing.JButton download;
+    private javax.swing.JButton generar;
     private javax.swing.JTextArea hashtable;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

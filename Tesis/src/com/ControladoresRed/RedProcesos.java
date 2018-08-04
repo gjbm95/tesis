@@ -104,6 +104,27 @@ public class RedProcesos extends Thread {
                 }
                 oos.writeObject(null);
             }
+            
+            if(funcion.equals("leavenode")){
+                if (Fantasma.obtenerInstancia().existe(mensaje.getData())){
+                    if (mensaje.getData() instanceof Nodo) {
+                        Nodo nodo = (Nodo) mensaje.getData();
+                        EjecutarComando.linea("leave " + nodo.getDireccion() + " " + nodo.getPuertopeticion());
+                        EjecutarComando.linea("order");
+                        oos.writeObject(new Mensaje("finalice", "", nodo));
+                        if(Fantasma.obtenerInstancia().getAnillo().size()>0)
+                        EjecutarComando.linea("generarFinger");
+                    }else if (mensaje.getData() instanceof  NodoRF){
+                        NodoRF nodo = (NodoRF) mensaje.getData();
+                        EjecutarComando.linea("leave " + nodo.getDireccion() + " " + nodo.getPuertopeticion());
+                        oos.writeObject(new Mensaje("finalice", "", nodo));
+                    }else{
+                        oos.writeObject(null);
+                    }
+                }
+                oos.writeObject(null);
+            }
+            
             if(funcion.equals("addtable")){
                     Nodo.getInstancia().getTablaRecursos().clear();
                     Nodo.getInstancia().setTabla((HashMap<Integer, NodoRF>)mensaje.getData());
@@ -194,17 +215,21 @@ public class RedProcesos extends Thread {
                 hash = (Long)mensaje.getData();
                 
                 if(hash <= Nodo.getInstancia().getHash().longValue()){
-                     Nodo.getInstancia().agregarRecurso(nodo, hash);
+                    Nodo.getInstancia().agregarRecurso(nodo, hash);
                     oos.writeObject("asignado");
-                }
-                    else{
+                     System.out.println("Asignado");
+                }else if (nodo.getDireccion().equals(Nodo.getInstancia().getDireccion())){
+                    Nodo.getInstancia().agregarRecurso(nodo, hash);
+                    oos.writeObject("asignado");
+                    System.out.println("Asignado");
+                }else{
                             NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
                         if (!(hashnode.getDireccion().equals(Nodo.getInstancia().getDireccion()))
                                 &&!(hashnode.getPuertopeticion()==Nodo.obtenerInstancia().getPuertopeticion()))
                         new ConexionUtils().enviarMensaje(new Mensaje("resource",hash,
                                 nodo,hashnode));
                         oos.writeObject("redireccionado");
-                            }
+                    }
                     
             }
 
