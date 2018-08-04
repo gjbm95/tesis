@@ -83,7 +83,7 @@ public class BuscarRecursoCommand extends BaseCommand{
                 }
                 SistemaUtil.reportarTiempo(COMMAND_NAME, "final", new NodoRF(Nodo.getInstancia().getDireccion(),Nodo.getInstancia().getPuertopeticion()));
             }
-
+           Nodo.getInstancia().setSolicitante(false);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

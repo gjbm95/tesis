@@ -217,11 +217,9 @@ public class RedProcesos extends Thread {
                 if(hash <= Nodo.getInstancia().getHash().longValue()){
                     Nodo.getInstancia().agregarRecurso(nodo, hash);
                     oos.writeObject("asignado");
-                    System.out.println("Asignado");
                 }else if (nodo.getDireccion().equals(Nodo.getInstancia().getDireccion())){
                     Nodo.getInstancia().agregarRecurso(nodo, hash);
                     oos.writeObject("asignado");
-                    System.out.println("Asignado");
                 }else{
                         NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
                         if (!(hashnode.getDireccion().equals(Nodo.getInstancia().getDireccion()))
@@ -237,17 +235,20 @@ public class RedProcesos extends Thread {
 
                 Nodo nodo =(Nodo)mensaje.getOrigen();
                 Long hash = (Long)mensaje.getData();
+                System.out.println("El hash es: "+ hash);
                 ArrayList<Nodo> respuesta = Nodo.getInstancia().tieneRecurso(hash);
                 if (respuesta.size()>0){
                     oos.writeObject(respuesta);
-                }else if (!Nodo.getInstancia().getDireccion().equals(nodo.getDireccion())){
+                }else if (!Nodo.getInstancia().isSolicitante()){   
                     System.out.println("Redireccionando consulta...");
                         NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
                     if (!(nodo.getDireccion().equals(Nodo.getInstancia().getDireccion()))
-                            &&!(nodo.getPuertopeticion()==Nodo.obtenerInstancia().getPuertopeticion()))
+                            &&!(nodo.getPuertopeticion()==Nodo.obtenerInstancia().getPuertopeticion())){
+                        Nodo.getInstancia().setSolicitante(true);
                         oos.writeObject((ArrayList<Nodo>)new ConexionUtils().enviarMensaje(new Mensaje("who", hash,
                                 nodo, hashnode)));
-                    else{
+                        Nodo.getInstancia().setSolicitante(false);
+                    }else{
                         oos.writeObject(null);
                     }
                 }else {

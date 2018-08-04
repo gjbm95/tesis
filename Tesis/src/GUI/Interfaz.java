@@ -221,7 +221,7 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton6);
-        jButton6.setBounds(1050, 10, 50, 50);
+        jButton6.setBounds(1050, 10, 50, 40);
 
         conection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/conectar.png"))); // NOI18N
         conection.setBorderPainted(false);
@@ -289,7 +289,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Dirección de Adaptador:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(30, 260, 130, 14);
+        jLabel5.setBounds(30, 260, 250, 14);
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Estadisticas:");
@@ -309,7 +309,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/logo-icon.png"))); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(0, 30, 350, 120);
+        jLabel2.setBounds(-10, 0, 350, 160);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/header.png"))); // NOI18N
         getContentPane().add(jLabel3);

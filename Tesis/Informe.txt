@@ -3,20 +3,5 @@
 Descargar Realizadas 
 
 ------------------------------------------------------
-
-Archivo: prueba.txt Tamaño: 25 bytes  Status: Descarga Finalizada 
-
-
-Archivo: prueba.txt Tamaño: 25 bytes  Status: Descarga Finalizada 
-
-
-Archivo: prueba.txt Tamaño: 25 bytes  Status: Descarga Finalizada 
-
-
-Archivo: prueba.txt Tamaño: 25 bytes  Status: Descarga Finalizada 
-
-
-Archivo: prueba.txt Tamaño: 25 bytes  Status: Descarga Finalizada 
-
 ------------------------------------------------------
 
