@@ -369,6 +369,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void downloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadActionPerformed
         // TODO add your handling code here:
+        if(results.getSelectedRow()!=-1){
         String resource = (String) results.getValueAt(results.getSelectedRow(),0);
         Controller.setLog(logs,"Iniciando descarga");
         try {
@@ -410,6 +411,9 @@ public class Interfaz extends javax.swing.JFrame {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+        }
+        else
+                    Controller.setLog(logs,"Por favor, seleccione una fila");
     }//GEN-LAST:event_downloadActionPerformed
 
     private void centraladdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_centraladdressActionPerformed
