@@ -223,10 +223,15 @@ public class RedProcesos extends Thread {
                 }else{
                         NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
                         if (!(hashnode.getDireccion().equals(Nodo.getInstancia().getDireccion()))
-                                &&!(hashnode.getPuertopeticion()==Nodo.obtenerInstancia().getPuertopeticion()))
+                                &&!(hashnode.getPuertopeticion()==Nodo.obtenerInstancia().getPuertopeticion())){
                         new ConexionUtils().enviarMensaje(new Mensaje("resource",hash,
                                 nodo,hashnode));
                         oos.writeObject("redireccionado");
+                        }
+                        else{
+                            Nodo.getInstancia().agregarRecurso(nodo, hash);
+                            oos.writeObject("asignado");
+                        }
                     }
                     
             }
