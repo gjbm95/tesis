@@ -220,6 +220,7 @@ public class RedProcesos extends Thread {
                 }else if (nodo.getDireccion().equals(Nodo.getInstancia().getDireccion())){
                     Nodo.getInstancia().agregarRecurso(nodo, hash);
                     oos.writeObject("asignado");
+                    Nodo.getInstancia().setSolicitante(false);
                 }else{
                         NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
                         if (!(hashnode.getDireccion().equals(Nodo.getInstancia().getDireccion()))
@@ -244,7 +245,7 @@ public class RedProcesos extends Thread {
                 ArrayList<Nodo> respuesta = Nodo.getInstancia().tieneRecurso(hash);
                 if (respuesta.size()>0){
                     oos.writeObject(respuesta);
-                }else if (!Nodo.getInstancia().isSolicitante()){   
+                }else if (!(nodo.getDireccion().equals(Nodo.getInstancia().getDireccion()))){   
                     System.out.println("Redireccionando consulta...");
                         NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
                     if (!(nodo.getDireccion().equals(Nodo.getInstancia().getDireccion()))
