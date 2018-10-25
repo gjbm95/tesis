@@ -248,6 +248,9 @@ public class RedProcesos extends Thread {
                 }else if (!(nodo.getDireccion().equals(Nodo.getInstancia().getDireccion()))){   
                     System.out.println("Redireccionando consulta...");
                         NodoRF hashnode = Nodo.obtenerInstancia().seleccionarNodo(hash);
+                        if(hashnode.getDireccion()==Nodo.getInstancia().getDireccion())
+                            oos.writeObject(null);
+                        else
                     if (!(nodo.getDireccion().equals(Nodo.getInstancia().getDireccion()))
                             &&!(nodo.getPuertopeticion()==Nodo.obtenerInstancia().getPuertopeticion())){
                         Nodo.getInstancia().setSolicitante(true);
